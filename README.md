@@ -53,4 +53,4 @@ In the future, I would continue these practices but also place more emphasis on:
 
 ---
 
-📌 *This journal reflection is part of my portfolio submission for CS 230.*
+📌 *This journal reflection is part of my portfolio submission for CS 250-12670.*
