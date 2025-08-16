@@ -2,47 +2,37 @@
 M01 Operating Platforms 2025
 # CS 230 – Module Eight Journal: Portfolio Reflection
 
-## Artifact Submitted
-**Artifact:** Completed Software Design Document for *Draw It or Lose It – Web Version*  
-**Client:** The Gaming Room  
-**Repo Location:** `docs/CS230-Software-Design-Document.pdf` (update this path to match your repo)
-
 ---
 
 ## Reflection
 
 ### 1) Client & Software Requirements
-The Gaming Room requested a **web-based, cross-platform** version of its Android game *Draw It or Lose It*. Key requirements included supporting multiple teams and players, enforcing **unique game and team names**, maintaining **only one instance** of the game service in memory (Singleton), and ensuring scalable performance and secure networked communication suitable for distributed use.
+The Gaming Room is a company that wanted to expand its Android game *Draw It or Lose It* into a **web-based, cross-platform version**. The software needed to support multiple teams and players, make sure that names were unique, and use only **one instance of the game service** in memory (through the Singleton pattern). The client also wanted the game to be scalable, secure, and able to run smoothly across different devices.
 
 ### 2) What I Did Well
-I translated client requirements into a clear **object-oriented domain model**, using an `Entity` base class (for Game, Team, Player) with encapsulation and consistent identifiers. I applied the **Singleton** pattern for `GameService` to centralize state and the **Iterator/search** approach to enforce unique names efficiently. My platform evaluation and recommendations balanced **cost, maintainability, and scalability**, aligning choices like Ubuntu Server LTS, PostgreSQL, and containerization with real-world operations [1][2][3].
+I think I did well in creating a **clear design structure** that matched the client’s needs. I built a domain model that used inheritance and encapsulation to avoid duplicate code, and I applied design patterns like **Singleton** and **Iterator** to keep the system efficient. I also feel confident about my platform recommendations, such as choosing Ubuntu Server LTS and PostgreSQL, because they balance cost, reliability, and scalability [1][2][3].
 
 ### 3) How the Design Document Helped the Code
-Working through the design document forced me to **plan before building**: clarifying constraints, picking deployment targets, and defining memory/storage approaches. That upfront analysis streamlined coding and reduced rework, because the architectural decisions (e.g., a multi-tier design with REST + optional WebSockets for realtime play) were already justified against requirements [4][5][6].
+Writing the design document first really helped me when it came time to think about coding. It made me slow down and plan instead of just jumping in. By laying out things like memory management, storage, and system layers, I already had answers to a lot of problems before I started building. For example, knowing I would use REST APIs and possibly WebSockets gave me a roadmap for how communication would work between players [4][5][6].
 
 ### 4) What I Would Revise (and How)
-I would expand the **security section** with a brief **threat model**, detailing risks (injection, auth/session abuse, misuse of realtime channels) and mapping them to mitigations (input validation, parameterized queries, JWT/OAuth2 with RBAC, HTTPS, key rotation, security headers, rate-limiting) with a small **sequence diagram** for auth/token refresh. I would also add **operational runbooks** (e.g., backup/restore steps, incident response) and SLOs to tighten reliability.
+If I could revise one part of my design document, I would add more detail to the **security section**. I mentioned things like HTTPS, JWT/OAuth2, and RBAC, but I could improve it by doing a short **threat model** and showing diagrams of how login and sessions are handled. I think this would make the design stronger and easier for both the client and developers to understand.
 
-### 5) Interpreting User Needs in the Design (and Why It Matters)
-User needs drove choices like **unique names** (avoid confusion in multiplayer lobbies), **low-latency updates** for drawing/guessing (WebSockets), and **scalable session handling** (stateless REST + token-based auth). Designing from user needs ensures the product is **usable, performant, and trustworthy**, which directly impacts engagement and retention [4][5][7].
+### 5) Interpreting User Needs (and Why It Matters)
+I made sure to connect the software design to what the users would need during gameplay. For example, requiring unique names avoids confusion, and using WebSockets ensures fast, real-time updates, which are very important for a drawing game. Thinking about the user’s experience is key because even if the system works technically, it won’t succeed if it doesn’t feel good for the players [4][5][7].
 
-### 6) My Design Approach & Go-Forward Strategies
-I combined **OO design**, **design patterns**, and a **multi-tier architecture** (presentation, application, data). In future projects, I’ll:
-- Prototype early, then iterate with **Agile feedback** cycles.
-- Use **UML** (class, sequence, deployment) to surface integration risks early.
-- Employ **containerization** and IaC for consistent environments and easy scaling.
-- Tune the JVM with **G1GC** targets for predictable latency under load [3].
-- Add **observability** (metrics, tracing, logs) and automated security checks in CI/CD.
+### 6) My Design Approach & Future Strategies
+My approach focused on using **object-oriented design** and **multi-tier architecture** to organize the system. Going forward, I would use more **UML diagrams** and **Agile methods** to improve my designs. I also want to include tools for **observability** like metrics and logs so that the software can be monitored easily. These strategies would help me design applications that are more reliable and scalable in the future [3][6][8].
 
 ---
 
-## Quick Rationale for Key Technical Choices (with Sources)
-- **Ubuntu Server LTS** for cost-effective, secure, and long-term supported deployments [1][2].  
-- **PostgreSQL** for relational, ACID-compliant storage and strong concurrency control [6].  
-- **G1 Garbage Collector** for low-pause, predictable performance in server-side Java [3].  
-- **REST over HTTPS** plus **WebSockets** for realtime gameplay (I/O efficient, standardized) [4][5].  
-- **OAuth 2.0/JWT** for interoperable, stateless authentication and session management [7][8].  
-- **NGINX/HAProxy** for load-balancing and horizontal scalability [9][10].
+## Key Technical Choices (with Sources)
+- **Ubuntu Server LTS** for stability, cost savings, and long-term support [1][2].  
+- **PostgreSQL** for ACID-compliant storage and strong concurrency [6].  
+- **G1 Garbage Collector** in the JVM for predictable performance [3].  
+- **REST over HTTPS** plus **WebSockets** for communication and real-time play [4][5].  
+- **OAuth2 and JWT** for secure authentication and session management [7][8].  
+- **NGINX/HAProxy** for load balancing and scaling [9][10].
 
 ---
 
@@ -58,8 +48,3 @@ I combined **OO design**, **design patterns**, and a **multi-tier architecture**
 [9] NGINX – Load Balancing Overview: https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/  
 [10] HAProxy – Configuration & Load Balancing: https://www.haproxy.com/documentation/haproxy-configuration/
 
----
-
-## How to View This Artifact
-- Open the design document at `docs/CS230-Software-Design-Document.pdf`.
-- This README section serves as the **Module Eight Journal** reflection for the portfolio.
