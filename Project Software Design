@@ -1,0 +1,123 @@
+ 
+
+Anna Fuentes
+Draw It or Lose It – Web Version
+CS 230 Project Software Design Template
+Version 1.0
+ 
+Table of Contents
+
+CS 230 Project Software Design Template	1
+Table of Contents	2
+Document Revision History	2
+Executive Summary	3
+Requirements	3
+Design Constraints	3
+System Architecture View	3
+Domain Model	3
+Evaluation	4
+Recommendations	5
+
+
+Document Revision History
+
+Version	Date	Page(s)	Author	Comments
+1.0	07/25/25	3-4	Anna Fuentes	Initial draft of software design document
+2.0	08/16/25	5-6	Anna Fuentes	Recommendations (Updated)
+2.0	08/16/25	7	Anna Fuentes	References
+
+Instructions 
+Fill in all bracketed information on page one (the cover page), in the Document Revision History table, and below each header. Under each header, remove the bracketed prompt and write your own paragraph response covering the indicated information.  
+Executive Summary
+The Gaming Room aims to develop a web-based version of their Android game, Draw It or Lose It, and make it accessible across multiple platforms.  This project proposes a scalable, object-oriented solution using Java and common design patterns (Singleton and Iterator) to meet client requirements, including managing game instances, ensuring unique team and player names, and enabling efficient memory use.  This document outlines software architecture decisions, design constraints, and development recommendations tailored to a distributed, web-based environment.
+
+Requirements
+ *A game must support one or more teams
+* Each team can have multiple players
+* Game and team names must be unique
+* Only one instance of the GameService should exist in memory (Singleton)
+* Unique IDs must be generated for games, teams, and players
+
+
+Design Constraints
+*Single Instance Limitation: Only one Game Service instance should exist to manage state across the system, requiring the Singleton pattern.
+*Name Uniqueness: Game, team, and player names must be validated before creation using an iterator/search through collections.
+*Web-Based Distribution: The system must be lightweight, scalable, and network-resilient to support cross-platform users.
+*Extensibility: The object model must be modular and support future game logic changes or enhancements.
+*Memory Management: Proper handling of object lifecycle, especially for active/inactive games, is crucial.
+
+These constraints drive decisions about patterns, architecture, and technology stack to ensure scalability and maintainability.
+
+System Architecture View
+Not required for this project.
+
+Domain Model
+The UML diagram represents a clear object-oriented structure.
+*Entity Class is a base class with shared attributes (id, name) and methods for all other domain objects.
+*Game Service: is a Singleton managing all games, teams, and players, holding lists and generating unique IDs.
+*Game, Team, and Player all inherit from Entity, reusing code and maintaining consistency
+
+OOP Principles Used
+*Inheritance: game, Team, and Player inherit from Entity
+*Encapsulation: attributes are private, accessed via getters
+*Polymorphism: shared behavior through the Entity class
+*Design Patterns: Singleton for GameService and Iterator for searching unique names
+
+ 
+
+Evaluation
+
+Using your experience to evaluate the characteristics, advantages, and weaknesses of each operating platform (Linux, Mac, and Windows) as well as mobile devices, consider the requirements outlined below and articulate your findings for each. As you complete the table, keep in mind your client’s requirements and look at the situation holistically, as it all has to work together. In each cell, remove the bracketed prompt and write your own paragraph response covering the indicated information. 
+
+Development Requirements	Mac	Linux	Windows	Mobile Devices
+Server Side	Stable Unix-based backend.  Supports Java.  Slightly less enterprise-standard than Linux.	Most stable and cost-effective for hosting.  Open-source and high performance.	Compatible, but may have licensing costs.  Good support for .NET/Windows servers.	Not ideal for hosting, mobile Oses are client platforms.
+Client Side	Requires Mac specific testing.  Development requires Apple hardware.	Requires specific testing environments, great for Android.	Widely supported, development is cost-effective.	Android/iOS apps need separate testing; more complex, deployment pipelines.
+Development Tools	IntelliJ, Eclipse, Xcode.  Java supported.	IntelliJ, Eclipse, NetBeans.  Ideal for backend.	Eclipse, InelliJ, Visual Studio.	Android Studio for Android, Xcode for iOS.  Cross-platform tools like React Native helpful.
+
+ 
+Recommendations
+
+1.	Operating Platform: For the main server platform, I recommend using Ubuntu Server LTS.  It’s a stable and reliable Linux distribution that’s often used in cloud environments and comes with long-term support.  This is ideal because it means that updates and security patches are provided for several years without needing frequent upgrades (Wikipedia, 2025).  It also works really well with Java, which is important, since the game is built on it.  Another reason I think Ubuntu Server makes sense is because it’s a free and open source, unlike Windows servers, which often have licensing costs.  It also supports container technologies like Docker and Kubernetes, which would make it easier to scale and deploy updates quickly (Canonical, 2025; TechRadar, 2025).
+
+2.	Operating Systems Architectures: I recommend using a multi-tier architecture.  This would include a presentation layer (where the player interacts with the game), an application layer (where the Java backend logic runs), and a database layer (where the player and game data is stored).  Running this on a 64-bit Ubuntu Server helps performance because it can handle more memory and is better suited for scaling.  Using containers for each layer also makes it easier to update and maintain parts of the system without breaking everything else (Wikipedia, 2025).
+
+
+3.	Storage Management: For storing player data, game information, and other important records, I recommend using PostgreSQL because it’s a reliable relational database that follows ACID principles.  MySQL could also work, but PostgreSQL is usually considered more powerful for complex applications.  To make sure data is protected, the system should use replication and backups, so the game data isn’t lost if a server goes down.  Also, using transaction isolation levels helps avoid issues when multiple players interact with the game at the same time.
+
+4.	Memory Management: Since the game is Java-based, memory will be handled by the Java Virtual Machine.  I recommend using the G1 Garbage Collector (G1GC) because it’s designed for applications that need consistent performance and low pause times (Wikipedia, 2025).  Turing the JVM with heap setting (like Xms and Xmx) and pause-time goals can make the game run more smoothly, even when a lot of players are active (Gipyeong-Lee, 2023).  Using the Singleton pattern for the GameService is also important so there’s only one instance in memory.  On top of that, adding a caching system like Redis for commonly used data would reduce strain on the database (Sematext, n.d.).
+
+5.	Distributed Systems and Networks: To make sure the game can run across different platforms, the backend should use RESTful APIs over HTTPS for communication.  This will work well across devices.  Since it’s a drawing game, I also recommend adding WebSockets for real-time updates so players see changes instantly.  The system should use load-balancing with something like NGINX or HAProxy to spread traffic across servers.  To avoid downtime, the network should have retry logic, failover options, and even a Content Delivery Network to deliver game assets faster to players in different regions.
+
+6.	Security: Security is very important for protecting players.  First, all traffic should use HTTPS to encrypt communication.  The system should also use JSON Web Tokens or OAuth2 for login and session management, and role-based access control RBAC to separate normal players from admins.  Sensitive data like emails or passwords should be encrypted at rest using something strong like AES-256.  The game should validate all input to avoid attacks like SQL injection.  Finally logging and monitoring tools should be in place to detect unusual activity, and the server should be updated regularly to patch any vulnerabilities (TechRadar, 2025).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+References
+
+Drake, N., Turner, B., & January 2021, M. S. 04. (n.d.). Best Linux Server distros of 2021. TechRadar. https://www.techradar.com/best/best-linux-server-distro
+
+JVM G1GC Tuning. (2023, February 24). Github.io. https://gipyeong-lee.github.io/2023/02/24/JVM-G1GC-Tuning/
+
+ Kuc, R. (2020, January 14). How to Tune Java Garbage Collection - Sematext. Sematext. https://sematext.com/java-garbage-collection-tuning/
+
+Ubuntu. (2020, April 9). Wikipedia. https://en.wikipedia.org/wiki/Ubuntu
+
+Ubuntu Server 25.04 vs 24.04 LTS: Key Differences and Which to Choose. (2025). Bacloud.com. https://www.bacloud.com/en/blog/169/ubuntu
+
+Wikipedia Contributors. (2025, April 23). Garbage-first collector. Wikipedia; Wikimedia Foundation.
+
+Wikipedia Contributors. (2025, July 29). Long-term support. Wikipedia; Wikimedia Foundation.
+
+
+
