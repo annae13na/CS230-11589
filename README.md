@@ -1,6 +1,6 @@
-# CS250-12670
-M01 Software Development Lifecycle 2025
-# 🎮 CS 250 Module Eight Journal – Portfolio Reflection
+# CS230-11589
+M01 Operating Platforms 2025
+# 🎮 CS 230 Module Eight Journal – Portfolio Reflection
 
 ## The Gaming Room: Client and Software Requirements
 
