@@ -1,100 +1,65 @@
 # CS230-11589
 M01 Operating Platforms 2025
-# 🎮 CS 230 Module Eight Journal – Portfolio Reflection
+# CS 230 – Module Eight Journal: Portfolio Reflection
 
-## The Gaming Room: Client and Software Requirements
-
+## Artifact Submitted
+**Artifact:** Completed Software Design Document for *Draw It or Lose It – Web Version*  
 **Client:** The Gaming Room  
-**Existing Product:** *Draw It or Lose It* (Android)  
-**Goal:** Expand to a web-based, cross-platform application.
-
-**Core needs:**  
-- Multiple simultaneous games with multiple teams and players  
-- Enforcing **unique game and team names**  
-- Only one instance of the game service in memory (**Singleton pattern**)  
-- A **distributed system** that allows communication across platforms  
-- **Secure** handling of user authentication and data
+**Repo Location:** `docs/CS230-Software-Design-Document.pdf` (update this path to match your repo)
 
 ---
 
-## ✅ What I Did Well
+## Reflection
 
-I connected the client’s requirements to concrete technical solutions. Highlights include:
+### 1) Client & Software Requirements
+The Gaming Room requested a **web-based, cross-platform** version of its Android game *Draw It or Lose It*. Key requirements included supporting multiple teams and players, enforcing **unique game and team names**, maintaining **only one instance** of the game service in memory (Singleton), and ensuring scalable performance and secure networked communication suitable for distributed use.
 
-- Using **object-oriented design** and patterns like **Singleton** and **Iterator** to help ensure unique naming and efficient memory use.  
-- Recommending a **Linux-based server environment** for scalability, cost savings, and stability.  
-- Explaining **memory vs. storage** management with real application needs in mind (fast image rendering and large image library storage).
+### 2) What I Did Well
+I translated client requirements into a clear **object-oriented domain model**, using an `Entity` base class (for Game, Team, Player) with encapsulation and consistent identifiers. I applied the **Singleton** pattern for `GameService` to centralize state and the **Iterator/search** approach to enforce unique names efficiently. My platform evaluation and recommendations balanced **cost, maintainability, and scalability**, aligning choices like Ubuntu Server LTS, PostgreSQL, and containerization with real-world operations [1][2][3].
 
----
+### 3) How the Design Document Helped the Code
+Working through the design document forced me to **plan before building**: clarifying constraints, picking deployment targets, and defining memory/storage approaches. That upfront analysis streamlined coding and reduced rework, because the architectural decisions (e.g., a multi-tier design with REST + optional WebSockets for realtime play) were already justified against requirements [4][5][6].
 
-## 🧩 Helpful Parts of the Design Process
+### 4) What I Would Revise (and How)
+I would expand the **security section** with a brief **threat model**, detailing risks (injection, auth/session abuse, misuse of realtime channels) and mapping them to mitigations (input validation, parameterized queries, JWT/OAuth2 with RBAC, HTTPS, key rotation, security headers, rate-limiting) with a small **sequence diagram** for auth/token refresh. I would also add **operational runbooks** (e.g., backup/restore steps, incident response) and SLOs to tighten reliability.
 
-The software design document process helped me think ahead before writing code. Instead of coding first, I planned around:
+### 5) Interpreting User Needs in the Design (and Why It Matters)
+User needs drove choices like **unique names** (avoid confusion in multiplayer lobbies), **low-latency updates** for drawing/guessing (WebSockets), and **scalable session handling** (stateless REST + token-based auth). Designing from user needs ensures the product is **usable, performant, and trustworthy**, which directly impacts engagement and retention [4][5][7].
 
-- **Memory management:** fast rendering of 200+ high‑resolution images so gameplay stayed smooth.  
-- **Storage needs:** organizing large image files and user data.  
-- **Distributed systems:** ensuring players on different devices could connect seamlessly.
-
-That preparation made implementing **authentication** and **REST APIs** easier later because scalability and security were already considered.
-
----
-
-## 🔁 What I Would Revise
-
-If I could revise one section, it would be the **Distributed Systems and Networks** explanation. I covered scalability, but I would go deeper into:
-
-- **Real-time communication** options (e.g., **WebSockets**)  
-- **Fault tolerance and failover** strategies
-
-This would better show the client how the game could remain stable during outages and spikes.
+### 6) My Design Approach & Go-Forward Strategies
+I combined **OO design**, **design patterns**, and a **multi-tier architecture** (presentation, application, data). In future projects, I’ll:
+- Prototype early, then iterate with **Agile feedback** cycles.
+- Use **UML** (class, sequence, deployment) to surface integration risks early.
+- Employ **containerization** and IaC for consistent environments and easy scaling.
+- Tune the JVM with **G1GC** targets for predictable latency under load [3].
+- Add **observability** (metrics, tracing, logs) and automated security checks in CI/CD.
 
 ---
 
-## 🔎 Interpreting and Implementing User Needs
-
-I carefully mapped user needs into technical features:
-
-- **Unique game/team names** → Implemented with **Iterator** pattern and collection checks.  
-- **Single game instance** → Enforced with the **Singleton** pattern.  
-- **Fast rendering performance** → Optimized memory handling for images.  
-- **Security** → Used **REST API** with authentication and role-based access.
-
-Considering user needs is critical because even the best technical design fails if it doesn’t align with user experience and client expectations.
+## Quick Rationale for Key Technical Choices (with Sources)
+- **Ubuntu Server LTS** for cost-effective, secure, and long-term supported deployments [1][2].  
+- **PostgreSQL** for relational, ACID-compliant storage and strong concurrency control [6].  
+- **G1 Garbage Collector** for low-pause, predictable performance in server-side Java [3].  
+- **REST over HTTPS** plus **WebSockets** for realtime gameplay (I/O efficient, standardized) [4][5].  
+- **OAuth 2.0/JWT** for interoperable, stateless authentication and session management [7][8].  
+- **NGINX/HAProxy** for load-balancing and horizontal scalability [9][10].
 
 ---
 
-## 🧠 Memory vs. 💾 Storage Management
-
-In this project, I learned how memory and storage management work together but serve different purposes:
-
-- **Memory management** focuses on short-term performance. For example, *Draw It or Lose It* needed to load and display ~8 MB images rapidly during gameplay, which meant efficient allocation and garbage collection in memory.  
-- **Storage management** ensures long-term data organization. The game required permanent storage for its large library of images and player records, so a database or file system had to manage that efficiently.
-
-**In short:** *Memory enables speed*, while *storage provides capacity*—both are essential for balancing performance and reliability.
-
----
-
-## 🏗️ My Approach to Designing Software
-
-- **Client–server architecture** with **REST APIs**  
-- **Design patterns** (Singleton, Iterator) for efficiency  
-- **Secure authentication** with **Dropwizard** (BasicAuth + role-based access)  
-- **Cross-platform evaluation** of Linux, Windows, macOS, Android, and iOS
-
-**Future enhancements:**  
-- Leverage **cloud-native** tools (containers, auto-scaling, load balancing)  
-- Build **security by design** (encryption, stronger auth than BasicAuth)  
-- Use **architecture diagrams** and **UML** to communicate designs more effectively
+## References
+[1] Ubuntu – LTS releases and support overview: https://ubuntu.com/about/release-cycle  
+[2] Ubuntu Server – Official docs: https://ubuntu.com/server  
+[3] Oracle Docs – Garbage-First (G1) Garbage Collector: https://docs.oracle.com/javase/8/docs/technotes/guides/vm/G1.html  
+[4] Mozilla MDN – HTTP Overview (REST over HTTPS fundamentals): https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview  
+[5] RFC 6455 – The WebSocket Protocol (IETF): https://datatracker.ietf.org/doc/html/rfc6455  
+[6] PostgreSQL Docs – Transactions & Concurrency (ACID): https://www.postgresql.org/docs/current/transaction-iso.html  
+[7] OAuth 2.0 – RFC 6749 (IETF): https://datatracker.ietf.org/doc/html/rfc6749  
+[8] JSON Web Token (JWT) – RFC 7519 (IETF): https://datatracker.ietf.org/doc/html/rfc7519  
+[9] NGINX – Load Balancing Overview: https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/  
+[10] HAProxy – Configuration & Load Balancing: https://www.haproxy.com/documentation/haproxy-configuration/
 
 ---
 
-## 🗂️ References 
-
-- Oracle. (2024). *Memory management in the Java HotSpot™ virtual machine*. https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/  
-- Red Hat. (2023). *Introduction to Linux operating system*. https://www.redhat.com/en/topics/linux/what-is-linux  
-- OWASP Foundation. (2023). *Authentication cheat sheet*. https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html  
-- GeeksforGeeks. (2024). *Difference between memory management and storage management*. https://www.geeksforgeeks.org/difference-between-memory-management-and-storage-management/
-
----
-
-> 📌 *This journal reflection is part of my portfolio submission for CS 250 and showcases my ability to design, analyze, and reflect on software development for a real‑world client scenario.*
+## How to View This Artifact
+- Open the design document at `docs/CS230-Software-Design-Document.pdf`.
+- This README section serves as the **Module Eight Journal** reflection for the portfolio.
