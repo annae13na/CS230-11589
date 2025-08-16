@@ -27,16 +27,6 @@ My approach focused on using object-oriented design and multi-tier architecture 
 
 ---
 
-## Key Technical Choices  
-- **Ubuntu Server LTS** for stability, cost savings, and long-term support (Ubuntu, n.d.-a; Ubuntu, n.d.-b).  
-- **PostgreSQL** for ACID-compliant storage and strong concurrency (PostgreSQL, n.d.).  
-- **G1 Garbage Collector** in the JVM for predictable performance (Oracle, n.d.).  
-- **REST over HTTPS** plus **WebSockets** for communication and real-time play (Mozilla, n.d.; IETF, 2011).  
-- **OAuth2 and JWT** for secure authentication and session management (IETF, 2012; IETF, 2015).  
-- **NGINX/HAProxy** for load balancing and scaling (NGINX, n.d.; HAProxy, n.d.).  
-
----
-
 ## References  
 
 HAProxy. (n.d.). *Configuration and load balancing*. HAProxy. https://www.haproxy.com/documentation/haproxy-configuration/  
