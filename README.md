@@ -1,6 +1,6 @@
 # CS250-12670
 M01 Software Development Lifecycle 2025
-# 🎮 CS 230 Module Eight Journal – Reflection
+# 🎮 CS 250 Module Eight Journal – Reflection
 
 ## 1. Briefly summarize The Gaming Room client and their software requirements
 The client, **The Gaming Room**, wanted to expand their Android game *Draw It or Lose It* into a web-based application that could support multiple platforms. Their main requirements included:
