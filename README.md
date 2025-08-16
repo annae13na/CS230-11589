@@ -1,56 +1,100 @@
 # CS250-12670
 M01 Software Development Lifecycle 2025
-# 🎮 CS 250 Module Eight Journal – Reflection
+# 🎮 CS 250 Module Eight Journal – Portfolio Reflection
 
-## 1. Briefly summarize The Gaming Room client and their software requirements
-The client, **The Gaming Room**, wanted to expand their Android game *Draw It or Lose It* into a web-based application that could support multiple platforms. Their main requirements included:
-- Supporting multiple teams and players  
-- Ensuring game and team names are unique  
-- Limiting the system to a single game service instance in memory  
-- Making the system scalable and secure across platforms  
+## The Gaming Room: Client and Software Requirements
 
----
+**Client:** The Gaming Room  
+**Existing Product:** *Draw It or Lose It* (Android)  
+**Goal:** Expand to a web-based, cross-platform application.
 
-## 2. What did you do particularly well in developing this documentation?
-I did particularly well in explaining the **system architecture** and making clear recommendations for the **operating platform, storage management, and security**. I also clearly connected the client’s needs to technical solutions, such as using the **Singleton design pattern** for memory efficiency.
-
----
-
-## 3. What about the process of working through a design document did you find helpful when developing the code?
-The process helped me think through **design decisions before coding**. By outlining requirements, constraints, and architecture early, I could identify potential challenges (like distributed communication or securing user data) before writing any actual code. This made the coding process more **organized and efficient**.
+**Core needs:**  
+- Multiple simultaneous games with multiple teams and players  
+- Enforcing **unique game and team names**  
+- Only one instance of the game service in memory (**Singleton pattern**)  
+- A **distributed system** that allows communication across platforms  
+- **Secure** handling of user authentication and data
 
 ---
 
-## 4. If you could choose one part of your work on these documents to revise, what would you pick? How would you improve it?
-If I could revise one part, I would improve the **Distributed Systems** section. I originally gave a high-level explanation, but I would expand it with more detail about:
-- Real-time communication (e.g., WebSockets)  
-- Specific examples of **failover strategies**  
+## ✅ What I Did Well
 
-That would make the design more complete and practical.
+I connected the client’s requirements to concrete technical solutions. Highlights include:
 
----
-
-## 5. How did you interpret the user’s needs and implement them into your software design? Why is it so important to consider the user’s needs when designing?
-I interpreted the user’s needs by carefully analyzing the requirements:
-- Only one game service instance should run (Singleton pattern)  
-- Unique team and game names must be enforced  
-- The application must scale across multiple platforms  
-
-It’s important to consider the user’s needs because software should **solve the client’s actual problem**, not just be technically correct. If the design doesn’t reflect what the client wants, the final product won’t meet expectations.
+- Using **object-oriented design** and patterns like **Singleton** and **Iterator** to help ensure unique naming and efficient memory use.  
+- Recommending a **Linux-based server environment** for scalability, cost savings, and stability.  
+- Explaining **memory vs. storage** management with real application needs in mind (fast image rendering and large image library storage).
 
 ---
 
-## 6. How did you approach designing software? What techniques or strategies would you use in the future to analyze and design a similar software application?
-I approached the design using:
-- **Object-Oriented Programming (OOP)** principles  
-- **Design patterns** like Singleton and Iterator  
-- **Multi-tier architecture** strategies  
+## 🧩 Helpful Parts of the Design Process
 
-In the future, I would continue these practices but also place more emphasis on:  
-- **Security by design**  
-- **Cloud-native features** (like auto-scaling and containerization)  
-- Using diagrams (UML, architecture diagrams) to make the design easier to communicate  
+The software design document process helped me think ahead before writing code. Instead of coding first, I planned around:
+
+- **Memory management:** fast rendering of 200+ high‑resolution images so gameplay stayed smooth.  
+- **Storage needs:** organizing large image files and user data.  
+- **Distributed systems:** ensuring players on different devices could connect seamlessly.
+
+That preparation made implementing **authentication** and **REST APIs** easier later because scalability and security were already considered.
 
 ---
 
-📌 *This journal reflection is part of my portfolio submission for CS 250-12670.*
+## 🔁 What I Would Revise
+
+If I could revise one section, it would be the **Distributed Systems and Networks** explanation. I covered scalability, but I would go deeper into:
+
+- **Real-time communication** options (e.g., **WebSockets**)  
+- **Fault tolerance and failover** strategies
+
+This would better show the client how the game could remain stable during outages and spikes.
+
+---
+
+## 🔎 Interpreting and Implementing User Needs
+
+I carefully mapped user needs into technical features:
+
+- **Unique game/team names** → Implemented with **Iterator** pattern and collection checks.  
+- **Single game instance** → Enforced with the **Singleton** pattern.  
+- **Fast rendering performance** → Optimized memory handling for images.  
+- **Security** → Used **REST API** with authentication and role-based access.
+
+Considering user needs is critical because even the best technical design fails if it doesn’t align with user experience and client expectations.
+
+---
+
+## 🧠 Memory vs. 💾 Storage Management
+
+In this project, I learned how memory and storage management work together but serve different purposes:
+
+- **Memory management** focuses on short-term performance. For example, *Draw It or Lose It* needed to load and display ~8 MB images rapidly during gameplay, which meant efficient allocation and garbage collection in memory.  
+- **Storage management** ensures long-term data organization. The game required permanent storage for its large library of images and player records, so a database or file system had to manage that efficiently.
+
+**In short:** *Memory enables speed*, while *storage provides capacity*—both are essential for balancing performance and reliability.
+
+---
+
+## 🏗️ My Approach to Designing Software
+
+- **Client–server architecture** with **REST APIs**  
+- **Design patterns** (Singleton, Iterator) for efficiency  
+- **Secure authentication** with **Dropwizard** (BasicAuth + role-based access)  
+- **Cross-platform evaluation** of Linux, Windows, macOS, Android, and iOS
+
+**Future enhancements:**  
+- Leverage **cloud-native** tools (containers, auto-scaling, load balancing)  
+- Build **security by design** (encryption, stronger auth than BasicAuth)  
+- Use **architecture diagrams** and **UML** to communicate designs more effectively
+
+---
+
+## 🗂️ References 
+
+- Oracle. (2024). *Memory management in the Java HotSpot™ virtual machine*. https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/  
+- Red Hat. (2023). *Introduction to Linux operating system*. https://www.redhat.com/en/topics/linux/what-is-linux  
+- OWASP Foundation. (2023). *Authentication cheat sheet*. https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html  
+- GeeksforGeeks. (2024). *Difference between memory management and storage management*. https://www.geeksforgeeks.org/difference-between-memory-management-and-storage-management/
+
+---
+
+> 📌 *This journal reflection is part of my portfolio submission for CS 250 and showcases my ability to design, analyze, and reflect on software development for a real‑world client scenario.*
